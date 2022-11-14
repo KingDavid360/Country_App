@@ -1,9 +1,14 @@
-import 'package:country_app/components%20/filteer_container.dart';
-import 'package:country_app/constants.dart';
-import 'package:country_app/core/api_provider.dart';
-import 'package:country_app/screens/detail/detail_scren.dart';
+import 'dart:developer';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../components /filteer_container.dart';
+import '../../components /user_image_icon.dart';
+import '../../core/api_provider.dart';
+import '../../models/country_model.dart';
+import '../detail/detail_scren.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -21,13 +26,34 @@ class _HomeScreenState extends State<HomeScreen> {
     apiProvider.fetchCountries();
   }
 
+  bool searchAvailable = false;
+
+  List<CountryApiModel> searchedCountry = [];
+
+  var searchController = TextEditingController();
+
+  searchCountry(String searchedWord) {
+    final apiProvider = Provider.of<ApiProvider>(context, listen: false);
+
+    apiProvider.countryList.forEach((element) {
+      if (element.name!.common!.contains(searchedWord)) {
+        searchedCountry.add(element);
+        searchAvailable = true;
+        log("data from search: ${searchedCountry.length}");
+      }
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<ApiProvider>(context);
     var model = apiProvider.countryList;
+
     model.sort((a, b) => a.name!.common!.compareTo(b.name!.common!));
+
     return Scaffold(
-      backgroundColor: KSecondaryColor,
+      backgroundColor: Colors.white,
       body: apiProvider.loading
           ? Center(child: CircularProgressIndicator())
           : SafeArea(
@@ -48,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   style: TextStyle(
                                       fontSize: 30,
                                       fontFamily: 'ElsieSwashCaps',
-                                      color: KPrimaryColor,
+                                      color: Colors.black,
                                       fontWeight: FontWeight.w900)),
                               TextSpan(
                                   text: '.',
@@ -59,28 +85,38 @@ class _HomeScreenState extends State<HomeScreen> {
                             ])),
                             const Icon(
                               Icons.light_mode_outlined,
-                              color: KPrimaryColor,
+                              color: Colors.black,
                             )
                           ],
                         ),
                         const SizedBox(height: 30),
-                        Container(
-                          height: 55,
-                          width: MediaQuery.of(context).size.width * 0.9,
-                          color: Colors.grey[100],
-                          child: ListTile(
-                            leading: Icon(
-                              Icons.search,
-                              color: KPrimaryColor,
-                            ),
-                            title: Padding(
-                              padding: const EdgeInsets.only(left: 30.0),
-                              child: Text('Search Country',
-                                  style: TextStyle(
-                                      fontSize: 22,
-                                      color: KPrimaryColor,
-                                      fontWeight: FontWeight.w200)),
-                            ),
+                        TextFormField(
+                          controller: searchController,
+                          // onChanged: (value) {
+                          //   searchCountry(value);
+                          // },
+                          onFieldSubmitted: (value) {
+                            searchCountry(value);
+                          },
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            filled: true,
+                            hintText: "Search Country",
+                            suffixIcon: searchController.text.isNotEmpty
+                                ? InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        searchedCountry.clear();
+                                        searchController.clear();
+                                      });
+                                    },
+                                    child: Icon(
+                                      Icons.close,
+                                      color: Colors.black,
+                                    ),
+                                  )
+                                : Icon(Icons.close),
+                            fillColor: Color(0xffF2F4F7),
                           ),
                         ),
                         SizedBox(height: 15),
@@ -90,7 +126,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             FilterContainer(
                                 text: 'EN', icon: Icons.language_outlined),
                             FilterContainer(
-                                text: 'Filter', icon: Icons.filter_alt_outlined)
+                                text: 'Filter',
+                                icon: Icons.filter_alt_outlined),
                           ],
                         ),
                       ],
@@ -98,7 +135,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     Expanded(
                       child: ListView.builder(
                           // shrinkWrap: true,
-                          itemCount: model.length,
+                          itemCount: searchController.text.isNotEmpty
+                              ? searchedCountry.length
+                              : model.length,
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () {
@@ -108,33 +147,53 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 );
                               },
-                              child: ListTile(
-                                leading: Container(
-                                  height: 50,
-                                  width: 50,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Image.network(
-                                      "${model.elementAt(index).flags?.png}",
-                                      fit: BoxFit.fill,
+                              child: searchController.text.isNotEmpty
+                                  ? ListTile(
+                                      leading: CountryAltImage(
+                                        imageUrl:
+                                            "${searchedCountry.elementAt(index).flags?.png}",
+                                        radius: 10,
+                                        height: 50,
+                                        width: 50,
+                                      ),
+                                      title: Text(
+                                        "${searchedCountry.elementAt(index).name?.common}",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w700),
+                                      ),
+                                      subtitle: Text(
+                                        "${searchedCountry.elementAt(index).capital?.elementAt(0)}",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.normal),
+                                      ),
+                                    )
+                                  : ListTile(
+                                      leading: CountryAltImage(
+                                        imageUrl:
+                                            "${model.elementAt(index).flags?.png}",
+                                        radius: 10,
+                                        height: 50,
+                                        width: 50,
+                                      ),
+                                      title: Text(
+                                        "${model.elementAt(index).name?.common}",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w700),
+                                      ),
+                                      subtitle: Text(
+                                        "${model.elementAt(index).capital?.elementAt(0)}",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.normal),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                title: Text(
-                                  "${model.elementAt(index).name?.common}",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: KPrimaryColor,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                                subtitle: Text(
-                                  "${model.elementAt(index).capital}",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: KPrimaryColor,
-                                      fontWeight: FontWeight.normal),
-                                ),
-                              ),
                             );
                           }),
                     ),

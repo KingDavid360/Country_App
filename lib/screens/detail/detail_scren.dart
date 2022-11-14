@@ -30,6 +30,7 @@ class _DetailScreenState extends State<DetailScreen> {
       "${model.coatOfArms?.png}",
       // "${model.maps?.googleMaps}"
     ];
+    var Size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: KSecondaryColor,
       appBar: AppBar(
@@ -58,8 +59,8 @@ class _DetailScreenState extends State<DetailScreen> {
           child: ListView(
             children: [
               Container(
-                height: MediaQuery.of(context).size.height * 0.22,
-                width: MediaQuery.of(context).size.width,
+                height: Size.height * 0.25,
+                width: Size.width,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10)),
@@ -122,7 +123,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             fontSize: 20,
                             color: KPrimaryColor,
                             fontWeight: FontWeight.w700)),
-                    Text('${model.capital}',
+                    Text('${model.capital?.elementAt(0)}',
                         style: TextStyle(
                             fontSize: 18,
                             color: KPrimaryColor,
@@ -168,38 +169,24 @@ class _DetailScreenState extends State<DetailScreen> {
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: Row(
-                  children: [
-                    Text('Currency: ',
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: KPrimaryColor,
-                            fontWeight: FontWeight.w700)),
-                    Text('${model.currencies}',
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: KPrimaryColor,
-                            fontWeight: FontWeight.normal)),
-                  ],
-                ),
-              ),
-              SizedBox(height: 15),
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Time zone: ',
                         style: TextStyle(
                             fontSize: 20,
                             color: KPrimaryColor,
                             fontWeight: FontWeight.w700)),
-                    Text('${model.timezones}',
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: KPrimaryColor,
-                            fontWeight: FontWeight.normal)),
+                    Expanded(
+                      child: Text('${model.timezones}',
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: KPrimaryColor,
+                              fontWeight: FontWeight.normal)),
+                    ),
                   ],
                 ),
               ),
+              SizedBox(height: 15),
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: Row(
