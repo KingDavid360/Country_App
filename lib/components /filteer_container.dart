@@ -23,74 +23,7 @@ class _FilterContainerState extends State<FilterContainer> {
 
     return TextButton(
       onPressed: () {
-        showBottomSheet<dynamic>(
-            context: context,
-            builder: (BuildContext context) {
-              return Container(
-                height: 400,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    ListTile(
-                      leading: Text(
-                        'Filter',
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w700),
-                      ),
-                      trailing: Container(
-                        height: 20,
-                        width: 20,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Center(
-                            child: Icon(
-                              Icons.close_outlined,
-                              size: 15,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    ExpansionTile(
-                      title: Text(
-                        'Continent',
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w700),
-                      ),
-                      children: [
-                        Checkbox(
-                          value: isChecked,
-                          onChanged: (newValue) {
-                            setState(() {
-                              isChecked = newValue;
-                            });
-                          },
-                          activeColor: Colors.black,
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 20),
-                  ],
-                ),
-              );
-            });
+        modalSheet();
       },
       child: Container(
         height: 45,
@@ -115,5 +48,76 @@ class _FilterContainerState extends State<FilterContainer> {
         ),
       ),
     );
+  }
+
+  void modalSheet() {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            height: 400,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+              ),
+            ),
+            child: Column(
+              children: [
+                ListTile(
+                  leading: Text(
+                    'Filter',
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w700),
+                  ),
+                  trailing: Container(
+                    height: 20,
+                    width: 20,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Center(
+                        child: Icon(
+                          Icons.close_outlined,
+                          size: 15,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                ExpansionTile(
+                  title: Text(
+                    'Continent',
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w700),
+                  ),
+                  children: [
+                    Checkbox(
+                      value: isChecked,
+                      onChanged: (newValue) {
+                        setState(() {
+                          isChecked = newValue;
+                        });
+                      },
+                      activeColor: Colors.black,
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20),
+              ],
+            ),
+          );
+        });
   }
 }
