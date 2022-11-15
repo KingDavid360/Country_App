@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:country_app/components%20/bottomSheetItem.dart';
+import 'package:country_app/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -35,7 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   searchCountry(String searchedWord) {
     final apiProvider = Provider.of<ApiProvider>(context, listen: false);
-
     apiProvider.countryList.forEach((element) {
       if (element.name!.common!.contains(searchedWord)) {
         searchedCountry.add(element);
@@ -124,84 +125,46 @@ class _HomeScreenState extends State<HomeScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            FilterContainer(
-                                text: 'EN',
-                                icon: Icons.language_outlined,
-                                onPressed: () {
-                                  showModalBottomSheet<dynamic>(
-                                      context: context,
-                                      builder: (context) {
-                                        return Container(
-                                          height: 400,
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(10),
-                                              topRight: Radius.circular(10),
-                                            ),
-                                          ),
-                                          child: Column(
-                                            children: [
-                                              ListTile(
-                                                leading: Text(
-                                                  'Filter',
-                                                  style: TextStyle(
-                                                      fontSize: 20,
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.w700),
-                                                ),
-                                                trailing: Container(
-                                                  height: 20,
-                                                  width: 20,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.grey[200],
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5),
-                                                  ),
-                                                  child: GestureDetector(
-                                                    onTap: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: Center(
-                                                      child: Icon(
-                                                        Icons.close_outlined,
-                                                        size: 15,
-                                                        color: Colors.grey,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              ExpansionTile(
-                                                title: Text(
-                                                  'Continent',
-                                                  style: TextStyle(
-                                                      fontSize: 20,
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.w700),
-                                                ),
-                                                children: [
-                                                  Checkbox(
-                                                    value: isChecked,
-                                                    onChanged: (newValue) {
-                                                      setState(() {
-                                                        isChecked = !isChecked;
-                                                      });
-                                                      print(isChecked);
-                                                    },
-                                                    activeColor: Colors.black,
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(height: 20),
-                                            ],
-                                          ),
-                                        );
-                                      });
-                                }),
+                            InkWell(
+                              onTap: () {
+                                 showModalBottomSheet(
+                                  backgroundColor: Colors.white,
+                                  isScrollControlled: true,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        topRight: Radius.circular(10)),
+                                  ),
+                                  context: context,
+                                  builder: (context) => BottomSheetItem());
+                               
+                              },
+                              child: Container(
+                                height: 45,
+                                width: 85,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    border:
+                                        Border.all(color: Color(0xffC0C0C0))),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Icon(
+                                      Icons.language_outlined,
+                                      size: 25,
+                                      color: KPrimaryColor,
+                                    ),
+                                    Text('EN',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: KPrimaryColor,
+                                            fontWeight: FontWeight.w700)),
+                                  ],
+                                ),
+                              ),
+                            )
+
                             // FilterContainer(
                             //     text: 'Filter',
                             //     icon: Icons.filter_alt_outlined),
