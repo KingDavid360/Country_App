@@ -127,17 +127,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             InkWell(
                               onTap: () {
-                                 showModalBottomSheet(
-                                  backgroundColor: Colors.white,
-                                  isScrollControlled: true,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(10),
-                                        topRight: Radius.circular(10)),
-                                  ),
-                                  context: context,
-                                  builder: (context) => BottomSheetItem());
-                               
+                                showModalBottomSheet(
+                                    backgroundColor: Colors.white,
+                                    isScrollControlled: true,
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10)),
+                                    ),
+                                    context: context,
+                                    builder: (context) => BottomSheetItem());
                               },
                               child: Container(
                                 height: 45,
@@ -163,11 +162,45 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ],
                                 ),
                               ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                showModalBottomSheet<dynamic>(
+                                    backgroundColor: Colors.white,
+                                    isScrollControlled: true,
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          topRight: Radius.circular(20)),
+                                    ),
+                                    context: context,
+                                    builder: (context) => BottomSheetItem());
+                              },
+                              child: Container(
+                                height: 45,
+                                width: 85,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    border:
+                                        Border.all(color: Color(0xffC0C0C0))),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Icon(
+                                      Icons.filter_alt_outlined,
+                                      size: 25,
+                                      color: KPrimaryColor,
+                                    ),
+                                    Text('Filter',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: KPrimaryColor,
+                                            fontWeight: FontWeight.w700)),
+                                  ],
+                                ),
+                              ),
                             )
-
-                            // FilterContainer(
-                            //     text: 'Filter',
-                            //     icon: Icons.filter_alt_outlined),
                           ],
                         ),
                       ],
