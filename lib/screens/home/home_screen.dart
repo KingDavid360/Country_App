@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
     var model = apiProvider.countryList;
 
     model.sort((a, b) => a.name!.common!.compareTo(b.name!.common!));
-
+    bool? isChecked = false;
     return Scaffold(
       backgroundColor: Colors.white,
       body: apiProvider.loading
@@ -124,10 +124,85 @@ class _HomeScreenState extends State<HomeScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             FilterContainer(
-                                text: 'EN', icon: Icons.language_outlined),
-                            FilterContainer(
-                                text: 'Filter',
-                                icon: Icons.filter_alt_outlined),
+                                text: 'EN',
+                                icon: Icons.language_outlined,
+                                onPressed: () {
+                                  showModalBottomSheet<dynamic>(
+                                      context: context,
+                                      builder: (context) {
+                                        return Container(
+                                          height: 400,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(10),
+                                              topRight: Radius.circular(10),
+                                            ),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              ListTile(
+                                                leading: Text(
+                                                  'Filter',
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.w700),
+                                                ),
+                                                trailing: Container(
+                                                  height: 20,
+                                                  width: 20,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.grey[200],
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                  ),
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Center(
+                                                      child: Icon(
+                                                        Icons.close_outlined,
+                                                        size: 15,
+                                                        color: Colors.grey,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              ExpansionTile(
+                                                title: Text(
+                                                  'Continent',
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.w700),
+                                                ),
+                                                children: [
+                                                  Checkbox(
+                                                    value: isChecked,
+                                                    onChanged: (newValue) {
+                                                      setState(() {
+                                                        isChecked = newValue;
+                                                      });
+                                                    },
+                                                    activeColor: Colors.black,
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(height: 20),
+                                            ],
+                                          ),
+                                        );
+                                      });
+                                }),
+                            // FilterContainer(
+                            //     text: 'Filter',
+                            //     icon: Icons.filter_alt_outlined),
                           ],
                         ),
                       ],
