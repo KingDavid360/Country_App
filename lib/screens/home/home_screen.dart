@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     apiProvider.fetchCountries();
   }
 
+  bool isChecked = false;
   bool searchAvailable = false;
 
   List<CountryApiModel> searchedCountry = [];
@@ -51,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
     var model = apiProvider.countryList;
 
     model.sort((a, b) => a.name!.common!.compareTo(b.name!.common!));
-    bool? isChecked = false;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: apiProvider.loading
@@ -187,8 +188,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     value: isChecked,
                                                     onChanged: (newValue) {
                                                       setState(() {
-                                                        isChecked = newValue;
+                                                        isChecked = !isChecked;
                                                       });
+                                                      print(isChecked);
                                                     },
                                                     activeColor: Colors.black,
                                                   ),

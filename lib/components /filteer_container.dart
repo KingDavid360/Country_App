@@ -23,26 +23,29 @@ class _FilterContainerState extends State<FilterContainer> {
   Widget build(BuildContext context) {
     // int? radioValue = Provider.of<FilterProvider>(context).isOn;
     bool? isChecked = false;
-    return Container(
-      height: 45,
-      width: 85,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Color(0xffC0C0C0))),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Icon(
-            widget.icon,
-            size: 25,
-            color: KPrimaryColor,
-          ),
-          Text(widget.text,
-              style: TextStyle(
-                  fontSize: 18,
-                  color: KPrimaryColor,
-                  fontWeight: FontWeight.w700)),
-        ],
+    return InkWell(
+      onTap: widget.onPressed,
+      child: Container(
+        height: 45,
+        width: 85,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Color(0xffC0C0C0))),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Icon(
+              widget.icon,
+              size: 25,
+              color: KPrimaryColor,
+            ),
+            Text(widget.text,
+                style: TextStyle(
+                    fontSize: 18,
+                    color: KPrimaryColor,
+                    fontWeight: FontWeight.w700)),
+          ],
+        ),
       ),
     );
   }
