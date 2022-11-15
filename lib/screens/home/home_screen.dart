@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
   searchCountry(String searchedWord) {
     final apiProvider = Provider.of<ApiProvider>(context, listen: false);
     apiProvider.countryList.forEach((element) {
-      if (element.name!.common!.contains(searchedWord)) {
+      if (element.name!.common!.trim().contains(searchedWord)) {
         searchedCountry.add(element);
         searchAvailable = true;
         log("data from search: ${searchedCountry.length}");
@@ -216,7 +216,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               onTap: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => DetailScreen(index),
+                                    builder: (context) => DetailScreen(countryDetails:searchController.text.isNotEmpty?  searchedCountry.elementAt(index): model.elementAt(index),),
                                   ),
                                 );
                               },

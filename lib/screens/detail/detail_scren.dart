@@ -1,13 +1,16 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:country_app/constants.dart';
+import 'package:country_app/models/country_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/api_provider.dart';
 
+
+
 class DetailScreen extends StatefulWidget {
-  var index;
-  DetailScreen(var this.index, {super.key});
+  final CountryApiModel countryDetails;
+  DetailScreen( {super.key, required this.countryDetails});
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -24,10 +27,9 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<ApiProvider>(context);
-    var model = apiProvider.countryList[widget.index];
-    List<String> imageList = [
-      "${model.flags?.png}",
-      "${model.coatOfArms?.png}",
+     List<String> imageList = [
+      "${widget.countryDetails.flags?.png}",
+      "${widget.countryDetails.coatOfArms?.png}",
       // "${model.maps?.googleMaps}"
     ];
     var Size = MediaQuery.of(context).size;
@@ -47,7 +49,7 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
         ),
         centerTitle: true,
-        title: Text('${model.name?.common}',
+        title: Text('${widget.countryDetails.name?.common}',
             style: TextStyle(
                 fontSize: 25,
                 color: KPrimaryColor,
@@ -89,7 +91,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             fontSize: 20,
                             color: KPrimaryColor,
                             fontWeight: FontWeight.w700)),
-                    Text('${model.population}',
+                    Text('${widget.countryDetails.population}',
                         style: TextStyle(
                             fontSize: 18,
                             color: KPrimaryColor,
@@ -106,7 +108,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             fontSize: 20,
                             color: KPrimaryColor,
                             fontWeight: FontWeight.w700)),
-                    Text('${model.region}',
+                    Text('${widget.countryDetails.region}',
                         style: TextStyle(
                             fontSize: 18,
                             color: KPrimaryColor,
@@ -123,7 +125,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             fontSize: 20,
                             color: KPrimaryColor,
                             fontWeight: FontWeight.w700)),
-                    Text('${model.capital?.elementAt(0)}',
+                    Text('${widget.countryDetails.capital?.elementAt(0)}',
                         style: TextStyle(
                             fontSize: 18,
                             color: KPrimaryColor,
@@ -141,7 +143,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             fontSize: 20,
                             color: KPrimaryColor,
                             fontWeight: FontWeight.w700)),
-                    Text('${model.languages?.eng}',
+                    Text('${widget.countryDetails.languages?.eng}',
                         style: TextStyle(
                             fontSize: 18,
                             color: KPrimaryColor,
@@ -158,7 +160,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             fontSize: 20,
                             color: KPrimaryColor,
                             fontWeight: FontWeight.w700)),
-                    Text('${model.area}',
+                    Text('${widget.countryDetails.area}',
                         style: TextStyle(
                             fontSize: 18,
                             color: KPrimaryColor,
@@ -177,7 +179,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             color: KPrimaryColor,
                             fontWeight: FontWeight.w700)),
                     Expanded(
-                      child: Text('${model.timezones}',
+                      child: Text('${widget.countryDetails.timezones}',
                           style: TextStyle(
                               fontSize: 18,
                               color: KPrimaryColor,
@@ -196,7 +198,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             fontSize: 20,
                             color: KPrimaryColor,
                             fontWeight: FontWeight.w700)),
-                    Text('${model.idd?.root}',
+                    Text('${widget.countryDetails.idd?.root}',
                         style: TextStyle(
                             fontSize: 18,
                             color: KPrimaryColor,
@@ -213,7 +215,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             fontSize: 20,
                             color: KPrimaryColor,
                             fontWeight: FontWeight.w700)),
-                    Text('${model.car?.side}',
+                    Text('${widget.countryDetails.car?.side}',
                         style: TextStyle(
                             fontSize: 18,
                             color: KPrimaryColor,
