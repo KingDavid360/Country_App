@@ -214,7 +214,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           // shrinkWrap: true,
                           itemCount: searchController.text.isNotEmpty
                               ? searchedCountry.length
-                              : model.length,
+                              : filterModel.isNotEmpty
+                                  ? filterModel.length
+                                  : model.length,
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () {
@@ -253,29 +255,53 @@ class _HomeScreenState extends State<HomeScreen> {
                                             fontWeight: FontWeight.normal),
                                       ),
                                     )
-                                  : ListTile(
-                                      leading: CountryAltImage(
-                                        imageUrl:
-                                            "${model.elementAt(index).flags?.png}",
-                                        radius: 10,
-                                        height: 50,
-                                        width: 50,
-                                      ),
-                                      title: Text(
-                                        "${model.elementAt(index).name?.common}",
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w700),
-                                      ),
-                                      subtitle: Text(
-                                        "${model.elementAt(index).capital?.elementAt(0)}",
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                                    ),
+                                  : filterModel.isNotEmpty
+                                      ? ListTile(
+                                          leading: CountryAltImage(
+                                            imageUrl:
+                                                "${filterModel.elementAt(index).flags?.png}",
+                                            radius: 10,
+                                            height: 50,
+                                            width: 50,
+                                          ),
+                                          title: Text(
+                                            "${filterModel.elementAt(index).name?.common}",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                          subtitle: Text(
+                                            "${filterModel.elementAt(index).capital?.elementAt(0)}",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.normal),
+                                          ),
+                                        )
+                                      : ListTile(
+                                          leading: CountryAltImage(
+                                            imageUrl:
+                                                "${model.elementAt(index).flags?.png}",
+                                            radius: 10,
+                                            height: 50,
+                                            width: 50,
+                                          ),
+                                          title: Text(
+                                            "${model.elementAt(index).name?.common}",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                          subtitle: Text(
+                                            "${model.elementAt(index).capital?.elementAt(0)}",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.normal),
+                                          ),
+                                        ),
                             );
                           }),
                     ),
