@@ -9,6 +9,7 @@ import '../models/country_model.dart';
 class ApiProvider extends ChangeNotifier {
   bool loading = false;
   List<CountryApiModel> countryList = [];
+  List<CountryApiModel> filterCountryList = [];
 
   Future<bool> fetchCountries() async {
     loading = true;
@@ -35,5 +36,18 @@ class ApiProvider extends ChangeNotifier {
       notifyListeners();
       return false;
     }
+  }
+
+  filterCountry(String filteredCountry) {
+    countryList.forEach((element) {
+      if (element.region!.trim().contains(filteredCountry)) {
+        filterCountryList.add(element);
+
+        log("data from search: ${filteredCountry.length}");
+      }
+      filterCountryList
+          .sort((a, b) => a.name!.common!.compareTo(b.name!.common!));
+    });
+    notifyListeners();
   }
 }

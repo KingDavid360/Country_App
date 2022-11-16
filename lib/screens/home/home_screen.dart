@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:country_app/components%20/bottomSheetItem.dart';
+import 'package:country_app/components%20/continent_filter.dart';
 import 'package:country_app/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +10,7 @@ import 'package:provider/provider.dart';
 import '../../components /filteer_container.dart';
 import '../../components /user_image_icon.dart';
 import '../../core/api_provider.dart';
+import '../../core/fliter_provider.dart';
 import '../../models/country_model.dart';
 import '../detail/detail_scren.dart';
 
@@ -25,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     super.initState();
     final apiProvider = Provider.of<ApiProvider>(context, listen: false);
+    // final filterProvider = Provider.of<FilterProvider>(context, listen: false);
     apiProvider.fetchCountries();
   }
 
@@ -53,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
     var model = apiProvider.countryList;
 
     model.sort((a, b) => a.name!.common!.compareTo(b.name!.common!));
+    final filterModel = apiProvider.filterCountryList;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -216,7 +220,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               onTap: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => DetailScreen(countryDetails:searchController.text.isNotEmpty?  searchedCountry.elementAt(index): model.elementAt(index),),
+                                    builder: (context) => DetailScreen(
+                                      countryDetails:
+                                          searchController.text.isNotEmpty
+                                              ? searchedCountry.elementAt(index)
+                                              : model.elementAt(index),
+                                    ),
                                   ),
                                 );
                               },
