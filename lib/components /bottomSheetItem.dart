@@ -154,6 +154,9 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
                           apiProvider.filterCountry('Europe');
                           apiProvider.countryList =
                               apiProvider.filterCountryList;
+                        } else {
+                          apiProvider.countryList =
+                              apiProvider.constantCountryList;
                         }
                         print(filterProvider.isEuropeChecked);
                       },

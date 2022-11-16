@@ -9,6 +9,7 @@ import '../models/country_model.dart';
 class ApiProvider extends ChangeNotifier {
   bool loading = false;
   List<CountryApiModel> countryList = [];
+  List<CountryApiModel> constantCountryList = [];
   List<CountryApiModel> filterCountryList = [];
 
   Future<bool> fetchCountries() async {
@@ -26,7 +27,8 @@ class ApiProvider extends ChangeNotifier {
     if (response.statusCode == 200) {
       loading = false;
       var res = jsonDecode(response.body);
-      countryList = countryApiModelFromJson(response.body);
+      countryList =
+          constantCountryList = countryApiModelFromJson(response.body);
       print(response.body.toString());
       notifyListeners();
       return true;
