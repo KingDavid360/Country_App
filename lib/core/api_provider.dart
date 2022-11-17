@@ -11,6 +11,7 @@ class ApiProvider extends ChangeNotifier {
   List<CountryApiModel> countryList = [];
   List<CountryApiModel> constantCountryList = [];
   List<CountryApiModel> filterCountryList = [];
+  List<CountryApiModel> removeFilterList = [];
 
   Future<bool> fetchCountries() async {
     loading = true;
