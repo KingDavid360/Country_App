@@ -16,7 +16,7 @@ class BottomSheetItem extends StatefulWidget {
 }
 
 class _BottomSheetItemState extends State<BottomSheetItem> {
-  // bool isChecked = false;
+  bool isChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -79,10 +79,10 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
                           fontWeight: FontWeight.w500),
                     ),
                     trailing: Checkbox(
-                      value: filterProvider.isAfricaChecked,
+                      value: isChecked,
                       onChanged: (newValue) {
                         filterProvider.changeAfricaCheck(newValue);
-                        if (filterProvider.isAfricaChecked == true) {
+                        if (filterProvider.isAfricaChecked!) {
                           apiProvider.filterCountry('Africa');
                         } else {
                           apiProvider.filterCountryList.forEach((element) {
