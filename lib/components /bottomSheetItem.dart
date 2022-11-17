@@ -1,12 +1,13 @@
 import 'dart:developer';
 
-import 'package:country_app/components%20/continent_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../core/api_provider.dart';
 import '../core/fliter_provider.dart';
 import '../models/country_model.dart';
+
+
 
 class BottomSheetItem extends StatefulWidget {
   const BottomSheetItem({super.key});
@@ -16,11 +17,12 @@ class BottomSheetItem extends StatefulWidget {
 }
 
 class _BottomSheetItemState extends State<BottomSheetItem> {
-  bool isChecked = false;
+
+
+ 
 
   @override
   Widget build(BuildContext context) {
-    final filterProvider = Provider.of<FilterProvider>(context, listen: false);
     final apiProvider = Provider.of<ApiProvider>(context, listen: false);
     return DraggableScrollableSheet(
       expand: false,
@@ -71,7 +73,7 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
                 ),
                 children: [
                   ListTile(
-                    leading: Text(
+                    leading: const Text(
                       'Africa',
                       style: TextStyle(
                           fontSize: 20,
@@ -79,28 +81,39 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
                           fontWeight: FontWeight.w500),
                     ),
                     trailing: Checkbox(
-                      value: isChecked,
+                      value: apiProvider.isAfrica,
                       onChanged: (newValue) {
-                        filterProvider.changeAfricaCheck(newValue);
-                        if (filterProvider.isAfricaChecked!) {
-                          apiProvider.filterCountry('Africa');
+                        setState(() {
+                          apiProvider.isAfrica = !apiProvider.isAfrica;
+                        });
+
+                        if (apiProvider.isAfrica) {
+                          apiProvider.filterCountry("Africa");
                         } else {
-                          apiProvider.filterCountryList.forEach((element) {
-                            if (element.region!.trim() == 'Africa') {
-                              apiProvider.removeFilterList.add(element);
-                            }
-                          });
-                          apiProvider.filterCountryList.removeWhere((element) =>
-                              apiProvider.removeFilterList.contains(element));
+                          apiProvider.removeCountryFromFilter("Africa");
                         }
-                        print(filterProvider.isAfricaChecked);
-                        print(apiProvider.filterCountryList);
+
+                        // filterProvider.changeAfricaCheck(newValue);
+                        // if (filterProvider.isAfricaChecked!) {
+                        //   apiProvider.filterCountry('Africa');
+                        // } else {
+                        //   // apiProvider.filterCountryList.clear();
+                        //   apiProvider.filterCountryList.forEach((element) {
+                        //     if (element.region!.trim() == 'Africa') {
+                        //       apiProvider.removeFilterList.add(element);
+                        //     }
+                        //   });
+                        //   apiProvider.filterCountryList.removeWhere((element) =>
+                        //       apiProvider.removeFilterList.contains(element));
+                        // }
+                        // print(filterProvider.isAfricaChecked);
+                        // print(apiProvider.filterCountryList);
                       },
                       activeColor: Colors.black,
                     ),
                   ),
                   ListTile(
-                    leading: Text(
+                    leading:const  Text(
                       'Asia',
                       style: TextStyle(
                           fontSize: 20,
@@ -108,30 +121,40 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
                           fontWeight: FontWeight.w500),
                     ),
                     trailing: Checkbox(
-                      value: filterProvider.isAsiaChecked,
+                      value: apiProvider.isAsia,
                       onChanged: (newValue) {
-                        filterProvider.changeAsiaCheck(newValue);
-                        if (filterProvider.isAsiaChecked == true) {
-                          apiProvider.filterCountry('Asia');
-                          apiProvider.countryList =
-                              apiProvider.filterCountryList;
+                        setState(() {
+                          apiProvider.isAsia = !apiProvider.isAsia;
+                        });
+                        if (apiProvider.isAsia) {
+                          apiProvider.filterCountry("Asia");
+                          print("Asia toggled");
                         } else {
-                          apiProvider.filterCountryList.forEach((element) {
-                            if (element.region!.trim() == 'Asia') {
-                              apiProvider.removeFilterList.add(element);
-                            }
-                          });
-                          apiProvider.filterCountryList.removeWhere((element) =>
-                              apiProvider.removeFilterList.contains(element));
+                          apiProvider.removeCountryFromFilter("Asia");
                         }
-                        print(filterProvider.isAsiaChecked);
-                        print(apiProvider.filterCountryList);
+
+                        // filterProvider.changeAsiaCheck(newValue);
+                        // if (filterProvider.isAsiaChecked == true) {
+                        //   apiProvider.filterCountry('Asia');
+                        //   apiProvider.countryList =
+                        //       apiProvider.filterCountryList;
+                        // } else {
+                        //   apiProvider.filterCountryList.forEach((element) {
+                        //     if (element.region!.trim() == 'Asia') {
+                        //       apiProvider.removeFilterList.add(element);
+                        //     }
+                        //   });
+                        //   apiProvider.filterCountryList.removeWhere((element) =>
+                        //       apiProvider.removeFilterList.contains(element));
+                        // }
+                        // print(filterProvider.isAsiaChecked);
+                        // print(apiProvider.filterCountryList);
                       },
                       activeColor: Colors.black,
                     ),
                   ),
                   ListTile(
-                    leading: Text(
+                    leading:const  Text(
                       'Europe',
                       style: TextStyle(
                           fontSize: 20,
@@ -139,22 +162,31 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
                           fontWeight: FontWeight.w500),
                     ),
                     trailing: Checkbox(
-                      value: filterProvider.isEuropeChecked,
+                      value: apiProvider.isEurope,
                       onChanged: (newValue) {
-                        filterProvider.changeEuropeCheck(newValue);
-                        if (filterProvider.isEuropeChecked == true) {
-                          apiProvider.filterCountry('Europe');
+                        setState(() {
+                          apiProvider.isEurope = !apiProvider.isEurope;
+                        });
+                        if (apiProvider.isEurope) {
+                          apiProvider.filterCountry("Europe");
+                          print("Europe toggled");
                         } else {
-                          apiProvider.filterCountryList.forEach((element) {
-                            if (element.region!.trim() == 'Europe') {
-                              apiProvider.removeFilterList.add(element);
-                            }
-                          });
-                          apiProvider.filterCountryList.removeWhere((element) =>
-                              apiProvider.removeFilterList.contains(element));
+                          apiProvider.removeCountryFromFilter("Europe");
                         }
-                        print(filterProvider.isEuropeChecked);
-                        print(apiProvider.filterCountryList);
+                        // filterProvider.changeEuropeCheck(newValue);
+                        // if (filterProvider.isEuropeChecked == true) {
+                        //   apiProvider.filterCountry('Europe');
+                        // } else {
+                        //   apiProvider.filterCountryList.forEach((element) {
+                        //     if (element.region!.trim() == 'Europe') {
+                        //       apiProvider.removeFilterList.add(element);
+                        //     }
+                        //   });
+                        //   apiProvider.filterCountryList.removeWhere((element) =>
+                        //       apiProvider.removeFilterList.contains(element));
+                        // }
+                        // print(filterProvider.isEuropeChecked);
+                        // print(apiProvider.filterCountryList);
                       },
                       activeColor: Colors.black,
                     ),

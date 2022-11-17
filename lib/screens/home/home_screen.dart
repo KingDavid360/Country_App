@@ -181,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           topRight: Radius.circular(20)),
                                     ),
                                     context: context,
-                                    builder: (context) => BottomSheetItem());
+                                    builder: (context) => const BottomSheetItem());
                               },
                               child: Container(
                                 height: 45,
@@ -221,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ? filterModel.length
                                   : model.length,
                           itemBuilder: (context, index) {
-                            return GestureDetector(
+                            return InkWell(
                               onTap: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
@@ -258,30 +258,44 @@ class _HomeScreenState extends State<HomeScreen> {
                                             fontWeight: FontWeight.normal),
                                       ),
                                     )
-                                  : isAfricaChecked == true ||
-                                          isEuropeChecked == true ||
-                                          isAsiaChecked == true
-                                      ? ListTile(
-                                          leading: CountryAltImage(
-                                            imageUrl:
-                                                "${filterModel.elementAt(index).flags?.png}",
-                                            radius: 10,
-                                            height: 50,
-                                            width: 50,
-                                          ),
-                                          title: Text(
-                                            "${filterModel.elementAt(index).name?.common}",
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w700),
-                                          ),
-                                          subtitle: Text(
-                                            "${filterModel.elementAt(index).capital?.elementAt(0)}",
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.normal),
+                                  : apiProvider.filterCountryList.isNotEmpty
+                                      ? InkWell(
+                                          onTap: () {
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DetailScreen(
+                                                        countryDetails:
+                                                            apiProvider
+                                                                .filterCountryList
+                                                                .elementAt(
+                                                                    index)),
+                                              ),
+                                            );
+                                          },
+                                          child: ListTile(
+                                            leading: CountryAltImage(
+                                              imageUrl:
+                                                  "${apiProvider.filterCountryList.elementAt(index).flags?.png}",
+                                              radius: 10,
+                                              height: 50,
+                                              width: 50,
+                                            ),
+                                            title: Text(
+                                              "${apiProvider.filterCountryList.elementAt(index).name?.common}",
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w700),
+                                            ),
+                                            subtitle: Text(
+                                              "${apiProvider.filterCountryList.elementAt(index).capital?.elementAt(0)}",
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: Colors.black,
+                                                  fontWeight:
+                                                      FontWeight.normal),
+                                            ),
                                           ),
                                         )
                                       : ListTile(

@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
+
+import 'api_provider.dart';
 
 class FilterProvider extends ChangeNotifier {
+
   bool? isAfricaChecked;
   bool? isAntarcticaChecked;
   bool? isAsiaChecked;
@@ -14,12 +18,17 @@ class FilterProvider extends ChangeNotifier {
       this.isEuropeChecked = false,
       this.isNorthAmericaChecked = false,
       this.isAnyChecked = false});
+
+
+
   bool? changeAfricaCheck(value) {
     isAfricaChecked = value;
     isAnyChecked = value;
     notifyListeners();
     return isAfricaChecked;
   }
+
+ 
 
   bool? changeAntarcticaCheck(value) {
     isAntarcticaChecked = value;

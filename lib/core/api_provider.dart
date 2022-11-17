@@ -8,8 +8,13 @@ import '../models/country_model.dart';
 
 class ApiProvider extends ChangeNotifier {
   bool loading = false;
+
+
+  bool isAfrica = false;
+  bool isAsia = false;
+  bool isEurope = false;
+
   List<CountryApiModel> countryList = [];
-  List<CountryApiModel> constantCountryList = [];
   List<CountryApiModel> filterCountryList = [];
   List<CountryApiModel> removeFilterList = [];
 
@@ -28,8 +33,7 @@ class ApiProvider extends ChangeNotifier {
     if (response.statusCode == 200) {
       loading = false;
       var res = jsonDecode(response.body);
-      countryList =
-          constantCountryList = countryApiModelFromJson(response.body);
+      countryList = countryApiModelFromJson(response.body);
       print(response.body.toString());
       notifyListeners();
       return true;
@@ -42,6 +46,16 @@ class ApiProvider extends ChangeNotifier {
   }
 
   filterCountry(String filteredCountry) {
+    if (filteredCountry == "Africa") {
+      isAfrica = true;
+      notifyListeners();
+    }if (filteredCountry == "Asia") {
+      isAsia = true;
+      notifyListeners();
+    }if (filteredCountry == "Europe") {
+      isEurope = true;
+      notifyListeners();
+    }
     countryList.forEach((element) {
       if (element.region!.trim().contains(filteredCountry)) {
         filterCountryList.add(element);
@@ -49,6 +63,18 @@ class ApiProvider extends ChangeNotifier {
       }
       filterCountryList
           .sort((a, b) => a.name!.common!.compareTo(b.name!.common!));
+    });
+    notifyListeners();
+  }
+
+
+
+  removeCountryFromFilter(String filteredCountry) {
+    countryList.forEach((element) {
+      if (element.region!.trim().contains(filteredCountry)) {
+        filterCountryList.remove(element);
+        log("${filterCountryList.length}");
+      }
     });
     notifyListeners();
   }
