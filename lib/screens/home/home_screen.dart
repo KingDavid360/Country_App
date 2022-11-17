@@ -53,11 +53,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<ApiProvider>(context);
+    final filterProvider = Provider.of<FilterProvider>(context);
     var model = apiProvider.countryList;
 
     model.sort((a, b) => a.name!.common!.compareTo(b.name!.common!));
     final filterModel = apiProvider.filterCountryList;
-
+    final isAfricaChecked = filterProvider.isAfricaChecked;
+    final isAsiaChecked = filterProvider.isAsiaChecked;
+    final isEuropeChecked = filterProvider.isEuropeChecked;
     return Scaffold(
       backgroundColor: Colors.white,
       body: apiProvider.loading
@@ -255,7 +258,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                             fontWeight: FontWeight.normal),
                                       ),
                                     )
-                                  : filterModel.isNotEmpty
+                                  : isAfricaChecked == true ||
+                                          isEuropeChecked == true ||
+                                          isAsiaChecked == true
                                       ? ListTile(
                                           leading: CountryAltImage(
                                             imageUrl:

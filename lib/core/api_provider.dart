@@ -44,7 +44,6 @@ class ApiProvider extends ChangeNotifier {
     countryList.forEach((element) {
       if (element.region!.trim().contains(filteredCountry)) {
         filterCountryList.add(element);
-
         log("data from search: ${filteredCountry.length}");
       }
       filterCountryList
