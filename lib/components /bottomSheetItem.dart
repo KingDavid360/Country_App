@@ -86,12 +86,15 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
                           apiProvider.filterCountry('Africa');
                         } else {
                           apiProvider.filterCountryList.forEach((element) {
-                            if (element.region!.trim().contains('Africa')) {
-                              apiProvider.filterCountryList.remove(element);
+                            if (element.region!.trim() == 'Africa') {
+                              apiProvider.removeFilterList.add(element);
                             }
                           });
+                          apiProvider.filterCountryList.removeWhere((element) =>
+                              apiProvider.removeFilterList.contains(element));
                         }
                         print(filterProvider.isAfricaChecked);
+                        print(apiProvider.filterCountryList);
                       },
                       activeColor: Colors.black,
                     ),
@@ -114,12 +117,15 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
                               apiProvider.filterCountryList;
                         } else {
                           apiProvider.filterCountryList.forEach((element) {
-                            if (element.region!.trim().contains('Asia')) {
-                              apiProvider.filterCountryList.remove(element);
+                            if (element.region!.trim() == 'Asia') {
+                              apiProvider.removeFilterList.add(element);
                             }
                           });
+                          apiProvider.filterCountryList.removeWhere((element) =>
+                              apiProvider.removeFilterList.contains(element));
                         }
                         print(filterProvider.isAsiaChecked);
+                        print(apiProvider.filterCountryList);
                       },
                       activeColor: Colors.black,
                     ),
@@ -135,17 +141,20 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
                     trailing: Checkbox(
                       value: filterProvider.isEuropeChecked,
                       onChanged: (newValue) {
-                        filterProvider.changeAfricaCheck(newValue);
+                        filterProvider.changeEuropeCheck(newValue);
                         if (filterProvider.isEuropeChecked == true) {
                           apiProvider.filterCountry('Europe');
                         } else {
                           apiProvider.filterCountryList.forEach((element) {
-                            if (element.region!.trim().contains('Europe')) {
-                              apiProvider.filterCountryList.remove(element);
+                            if (element.region!.trim() == 'Europe') {
+                              apiProvider.removeFilterList.add(element);
                             }
                           });
+                          apiProvider.filterCountryList.removeWhere((element) =>
+                              apiProvider.removeFilterList.contains(element));
                         }
                         print(filterProvider.isEuropeChecked);
+                        print(apiProvider.filterCountryList);
                       },
                       activeColor: Colors.black,
                     ),
