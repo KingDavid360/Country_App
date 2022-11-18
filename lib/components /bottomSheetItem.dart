@@ -7,8 +7,6 @@ import '../core/api_provider.dart';
 import '../core/fliter_provider.dart';
 import '../models/country_model.dart';
 
-
-
 class BottomSheetItem extends StatefulWidget {
   const BottomSheetItem({super.key});
 
@@ -17,10 +15,6 @@ class BottomSheetItem extends StatefulWidget {
 }
 
 class _BottomSheetItemState extends State<BottomSheetItem> {
-
-
- 
-
   @override
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<ApiProvider>(context, listen: false);
@@ -113,7 +107,7 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
                     ),
                   ),
                   ListTile(
-                    leading:const  Text(
+                    leading: const Text(
                       'Asia',
                       style: TextStyle(
                           fontSize: 20,
@@ -132,29 +126,12 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
                         } else {
                           apiProvider.removeCountryFromFilter("Asia");
                         }
-
-                        // filterProvider.changeAsiaCheck(newValue);
-                        // if (filterProvider.isAsiaChecked == true) {
-                        //   apiProvider.filterCountry('Asia');
-                        //   apiProvider.countryList =
-                        //       apiProvider.filterCountryList;
-                        // } else {
-                        //   apiProvider.filterCountryList.forEach((element) {
-                        //     if (element.region!.trim() == 'Asia') {
-                        //       apiProvider.removeFilterList.add(element);
-                        //     }
-                        //   });
-                        //   apiProvider.filterCountryList.removeWhere((element) =>
-                        //       apiProvider.removeFilterList.contains(element));
-                        // }
-                        // print(filterProvider.isAsiaChecked);
-                        // print(apiProvider.filterCountryList);
                       },
                       activeColor: Colors.black,
                     ),
                   ),
                   ListTile(
-                    leading:const  Text(
+                    leading: const Text(
                       'Europe',
                       style: TextStyle(
                           fontSize: 20,
@@ -173,20 +150,6 @@ class _BottomSheetItemState extends State<BottomSheetItem> {
                         } else {
                           apiProvider.removeCountryFromFilter("Europe");
                         }
-                        // filterProvider.changeEuropeCheck(newValue);
-                        // if (filterProvider.isEuropeChecked == true) {
-                        //   apiProvider.filterCountry('Europe');
-                        // } else {
-                        //   apiProvider.filterCountryList.forEach((element) {
-                        //     if (element.region!.trim() == 'Europe') {
-                        //       apiProvider.removeFilterList.add(element);
-                        //     }
-                        //   });
-                        //   apiProvider.filterCountryList.removeWhere((element) =>
-                        //       apiProvider.removeFilterList.contains(element));
-                        // }
-                        // print(filterProvider.isEuropeChecked);
-                        // print(apiProvider.filterCountryList);
                       },
                       activeColor: Colors.black,
                     ),
