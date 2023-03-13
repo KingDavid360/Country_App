@@ -1,16 +1,15 @@
 # country_app
 
-A new Flutter project.
+A simple country app which displays all the countries of the world specific details of each country, such as coat of arm, country logo, currency, langauages spoken, etc. The app has some funtionalities like filter for differrent continents.
 
-## Getting Started
+## Codebase
 
-This project is a starting point for a Flutter application.
+The app was built using flutter framework and dart programming language
 
-A few resources to get you started if this is your first Flutter project:
+## API
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+https://restcountries.com/v3.1/all
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## UI
+
+![Simulator Screen Shot - iphone 11 - 2022-11-15 at 11 44 31](https://user-images.githubusercontent.com/80047364/224725324-2c8bfffb-f394-4166-903c-08d1906fbce8.png)
